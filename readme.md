@@ -58,5 +58,5 @@ Le validazioni e i controlli possiamo farli anche in un secondo momento.
     - La cella diventa blu
     - aggiungo la cella nella lista celle cliccate
 
-  - SE le celle cliccate - le celle bomba sono == 0
+  - SE le celle cliccate + le celle bomba sono == celle totali
     - La partita è finita - **TODO** un avviso con fine gioco e punteggio (richiamare una funzione)

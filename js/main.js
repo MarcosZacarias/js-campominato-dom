@@ -4,7 +4,7 @@ const cellContainer = document.getElementById("cell-container");
 const playButton = document.getElementById("play-button");
 const difficulty = document.getElementById("inputGroupSelect04");
 const numberBombs = 16;
-const listCellClick = [];
+let listCellClick = [];
 
 // |Creazione numero di celle
 
@@ -13,6 +13,7 @@ const listCellClick = [];
 
 // |Pulsante ceazione griglia
 playButton.addEventListener("click", function () {
+  listCellClick = [];
   let cellTotal = parseInt(difficulty.value);
   console.log(difficulty.value);
   const listBomb = generateRandomNumbersRange(1, cellTotal, numberBombs);
@@ -74,3 +75,6 @@ function generateRandomNumbersRange(min, max, range) {
   }
   return listBomb;
 }
+
+// |Funzione fine gioco
+function endGame() {}
