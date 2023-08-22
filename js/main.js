@@ -3,6 +3,7 @@
 const cellContainer = document.getElementById("cell-container");
 const playButton = document.getElementById("play-button");
 const difficulty = document.getElementById("inputGroupSelect04");
+const numberBombs = 16;
 
 // |Creazione numero di celle
 
@@ -14,6 +15,10 @@ playButton.addEventListener("click", function () {
   let cellTotal = parseInt(difficulty.value);
   console.log(difficulty.value);
   createGrid(cellTotal, cellContainer);
+  const listBomb = generateRandomNumbersRange(1, cellTotal, numberBombs);
+  console.log(cellTotal + " Numero celle");
+  console.log(numberBombs + " Numero di Bombe");
+  console.table(listBomb);
 });
 
 // |Funzione creazione griglia
@@ -39,4 +44,17 @@ function createCell(container, i, cellTotal) {
   });
 
   container.append(cell);
+}
+
+// |Funzione creazione lista bombe
+function generateRandomNumbersRange(min, max, range) {
+  const listBomb = [];
+  while (listBomb.length <= range - 1) {
+    let randomNumber = Math.floor(Math.random() * (max - min + 1) + min);
+    // console.log(randomNumber + " Numero casuale");
+    if (!listBomb.includes(randomNumber)) {
+      listBomb.push(randomNumber);
+    }
+  }
+  return listBomb;
 }
