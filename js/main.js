@@ -42,12 +42,13 @@ function createCell(container, i, cellTotal, listBomb, listCellClick) {
   cell.classList.add("cell-" + cellTotal);
 
   // **Quando clicco una cella
+
   cell.addEventListener("click", function () {
     // *Se la cella è sulla lista bombe
     if (listBomb.includes(i)) {
       // **Cella di colore rosso
       cell.classList.add("bg-danger");
-      console.log(i + " Cliccato una bomba");
+      alert("Gioco finito, il tuo punteggio è di: " + listCellClick.length);
     }
     // *Se la cella non è sulla lista bombe
     else {
@@ -58,6 +59,8 @@ function createCell(container, i, cellTotal, listBomb, listCellClick) {
       cell.classList.add("bg-primary");
       // console.log(i);
     }
+
+    endGame(listCellClick, listBomb, cellTotal);
   });
 
   container.append(cell);
@@ -77,4 +80,8 @@ function generateRandomNumbersRange(min, max, range) {
 }
 
 // |Funzione fine gioco
-function endGame() {}
+function endGame(listCellClick, listBomb, cellTotal) {
+  if (listCellClick.length + listBomb.length == cellTotal) {
+    alert("Gioco finito, il tuo punteggio è di: " + listCellClick.length);
+  }
+}
