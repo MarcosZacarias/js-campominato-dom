@@ -4,6 +4,7 @@ const cellContainer = document.getElementById("cell-container");
 const playButton = document.getElementById("play-button");
 const difficulty = document.getElementById("inputGroupSelect04");
 const numberBombs = 16;
+const listCellClick = [];
 
 // |Creazione numero di celle
 
@@ -18,33 +19,44 @@ playButton.addEventListener("click", function () {
   console.log(cellTotal + " Numero celle");
   console.log(numberBombs + " Numero di Bombe");
   console.table(listBomb);
-  createGrid(cellTotal, cellContainer, listBomb);
+  createGrid(cellTotal, cellContainer, listBomb, listCellClick);
 });
 
 // |Funzione creazione griglia
-function createGrid(cellsNumber, container, listBomb) {
+function createGrid(cellsNumber, container, listBomb, listCellClick) {
   container.innerHTML = "";
   // |Ciclo creazioni celle
   for (let i = 1; i <= cellsNumber; i++) {
-    createCell(cellContainer, i, cellsNumber, listBomb);
+    createCell(cellContainer, i, cellsNumber, listBomb, listCellClick);
   }
 }
 
 // |Funzione creazione cella
 
-function createCell(container, i, cellTotal, listBomb) {
+function createCell(container, i, cellTotal, listBomb, listCellClick) {
   const cell = document.createElement("li");
 
   cell.innerText = i;
   cell.classList.add("cell");
   cell.classList.add("cell-" + cellTotal);
+
+  // **Quando clicco una cella
   cell.addEventListener("click", function () {
+    // *Se la cella è sulla lista bombe
     if (listBomb.includes(i)) {
+      // **Cella di colore rosso
       cell.classList.add("bg-danger");
       console.log(i + " Cliccato una bomba");
     }
-    cell.classList.add("bg-primary");
-    console.log(i);
+    // *Se la cella non è sulla lista bombe
+    else {
+      // *Se la cella non è gia resente nella lista, aggiungere la cella sulla lista celle cliccate
+      if (!listCellClick.includes(i)) listCellClick.push(i);
+      console.table(listCellClick);
+
+      cell.classList.add("bg-primary");
+      // console.log(i);
+    }
   });
 
   container.append(cell);
