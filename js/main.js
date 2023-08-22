@@ -14,31 +14,35 @@ const numberBombs = 16;
 playButton.addEventListener("click", function () {
   let cellTotal = parseInt(difficulty.value);
   console.log(difficulty.value);
-  createGrid(cellTotal, cellContainer);
   const listBomb = generateRandomNumbersRange(1, cellTotal, numberBombs);
   console.log(cellTotal + " Numero celle");
   console.log(numberBombs + " Numero di Bombe");
   console.table(listBomb);
+  createGrid(cellTotal, cellContainer, listBomb);
 });
 
 // |Funzione creazione griglia
-function createGrid(cellsNumber, container) {
+function createGrid(cellsNumber, container, listBomb) {
   container.innerHTML = "";
   // |Ciclo creazioni celle
   for (let i = 1; i <= cellsNumber; i++) {
-    createCell(cellContainer, i, cellsNumber);
+    createCell(cellContainer, i, cellsNumber, listBomb);
   }
 }
 
 // |Funzione creazione cella
 
-function createCell(container, i, cellTotal) {
+function createCell(container, i, cellTotal, listBomb) {
   const cell = document.createElement("li");
 
   cell.innerText = i;
   cell.classList.add("cell");
   cell.classList.add("cell-" + cellTotal);
   cell.addEventListener("click", function () {
+    if (listBomb.includes(i)) {
+      cell.classList.add("bg-danger");
+      console.log(i + " Cliccato una bomba");
+    }
     cell.classList.add("bg-primary");
     console.log(i);
   });
