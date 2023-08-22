@@ -62,7 +62,6 @@ function createCell(container, i, cellTotal, listBomb, listCellClick) {
         cell.classList.add("bg-primary");
         // console.log(i);
       }
-
       if (listCellClick.length + listBomb.length == cellTotal) {
         endGame(listCellClick, listBomb, cellTotal);
       }
@@ -87,12 +86,21 @@ function generateRandomNumbersRange(min, max, range) {
 
 // |Funzione fine gioco
 function endGame(listCellClick, listBomb, cellTotal) {
-  alert(
-    "Gioco finito, il tuo punteggio è di: " +
-      listCellClick.length +
-      " / " +
-      (cellTotal - listBomb.length)
-  );
+  if (listCellClick.length + listBomb.length == cellTotal) {
+    alert(
+      "Hai vinto, il tuo punteggio è di: " +
+        listCellClick.length +
+        " / " +
+        (cellTotal - listBomb.length)
+    );
+  } else {
+    alert(
+      "Gioco finito, il tuo punteggio è di: " +
+        listCellClick.length +
+        " / " +
+        (cellTotal - listBomb.length)
+    );
+  }
   gameOn = false;
   console.log(gameOn);
 }
