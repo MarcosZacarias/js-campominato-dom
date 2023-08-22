@@ -5,6 +5,8 @@ const playButton = document.getElementById("play-button");
 const difficulty = document.getElementById("inputGroupSelect04");
 const numberBombs = 16;
 let listCellClick = [];
+let gameOn = true;
+console.log(gameOn);
 
 // |Creazione numero di celle
 
@@ -14,6 +16,7 @@ let listCellClick = [];
 // |Pulsante ceazione griglia
 playButton.addEventListener("click", function () {
   listCellClick = [];
+  gameOn = true;
   let cellTotal = parseInt(difficulty.value);
   console.log(difficulty.value);
   const listBomb = generateRandomNumbersRange(1, cellTotal, numberBombs);
@@ -42,25 +45,28 @@ function createCell(container, i, cellTotal, listBomb, listCellClick) {
   cell.classList.add("cell-" + cellTotal);
 
   // **Quando clicco una cella
-
   cell.addEventListener("click", function () {
-    // *Se la cella è sulla lista bombe
-    if (listBomb.includes(i)) {
-      // **Cella di colore rosso
-      cell.classList.add("bg-danger");
-      alert("Gioco finito, il tuo punteggio è di: " + listCellClick.length);
-    }
-    // *Se la cella non è sulla lista bombe
-    else {
-      // *Se la cella non è gia resente nella lista, aggiungere la cella sulla lista celle cliccate
-      if (!listCellClick.includes(i)) listCellClick.push(i);
-      console.table(listCellClick);
+    if (gameOn) {
+      // *Se la cella è sulla lista bombe
+      if (listBomb.includes(i)) {
+        // **Cella di colore rosso
+        cell.classList.add("bg-danger");
+        endGame(listCellClick, listBomb, cellTotal);
+      }
+      // *Se la cella non è sulla lista bombe
+      else {
+        // *Se la cella non è gia resente nella lista, aggiungere la cella sulla lista celle cliccate
+        if (!listCellClick.includes(i)) listCellClick.push(i);
+        console.table(listCellClick);
 
-      cell.classList.add("bg-primary");
-      // console.log(i);
-    }
+        cell.classList.add("bg-primary");
+        // console.log(i);
+      }
 
-    endGame(listCellClick, listBomb, cellTotal);
+      if (listCellClick.length + listBomb.length == cellTotal) {
+        endGame(listCellClick, listBomb, cellTotal);
+      }
+    }
   });
 
   container.append(cell);
@@ -81,7 +87,12 @@ function generateRandomNumbersRange(min, max, range) {
 
 // |Funzione fine gioco
 function endGame(listCellClick, listBomb, cellTotal) {
-  if (listCellClick.length + listBomb.length == cellTotal) {
-    alert("Gioco finito, il tuo punteggio è di: " + listCellClick.length);
-  }
+  alert(
+    "Gioco finito, il tuo punteggio è di: " +
+      listCellClick.length +
+      " / " +
+      (cellTotal - listBomb.length)
+  );
+  gameOn = false;
+  console.log(gameOn);
 }
